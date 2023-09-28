@@ -74,7 +74,6 @@ function generatePassword() {
   // ensure every selected character type is used at least once
   // add a random character to initialCharacters for each in-use character type
   // create a string with all in-use password characters for later use
-// calculate number of character types being used to later determine how many more characters are necessary
   const emptyString = "";
   var initialCharacters = emptyString
   var allInUseCharacters = emptyString
@@ -97,22 +96,12 @@ function generatePassword() {
   console.log("initial characters: " + initialCharacters);
   console.log("all in-use characters: " + allInUseCharacters);
 
-  // var buildPassword = emptyString
-  // var numInitialCharacters = initialCharacters.length;
-  // var passwordChar;
-  // for (var i = 0; i < numInitialCharacters; i++) {
-  //   passwordChar = getRandomCharacter(initialCharacters);
-  //   buildPassword = buildPassword + passwordChar;
-  //   initialCharacters = initialCharacters.replace(passwordChar,emptyString);
-  // }
-
-
-
-  // calculate how many more characters are needed
+  // calculate how many more characters are needed to complete password
   var numRemainingCharacters = o.passwordLength - initialCharacters.length;
   
   var buildPassword = initialCharacters;
-  // add additional characters until we have enough
+  // add additional characters until length is correct
+  // characters are randomly selected from string of all in-use characters
   for (var i = 0; i < numRemainingCharacters; i++) {
     buildPassword = buildPassword + getRandomCharacter(allInUseCharacters);
   }
@@ -123,16 +112,18 @@ function generatePassword() {
 
 }
 
+// takes an input string and builds a new randomized string
+// by randomly taking one character at a time from input string
 function randomizeString(inputStr) {
   var numChars = inputStr.length;
   var randomChar;
-  var randomString = "";
+  var randomizedString = "";
   for (var i = 0; i < numChars; i++) {
     randomChar = getRandomCharacter(inputStr);
-    randomString = randomString + randomChar;
+    randomizedString = randomizedString + randomChar;
     inputStr = inputStr.replace(randomChar,"");
   }
-  return(randomString);
+  return(randomizedString);
 }
 
 // generate a random index based on the string length
@@ -143,7 +134,8 @@ function getRandomCharacter(inputString) {
   return randomCharacter;
 }
 
-// generic function to confirm a character type and return a boolean
+// prompt user to confirm a given character type and return a boolean
+// desired character type is passed as an argument, along with character type example
 function choosePasswordCriteria(charType, charContent) {
   var msg = `Would you like your password to contain ${charType} characters?\n\n`;
   msg = msg + charContent;
@@ -151,21 +143,26 @@ function choosePasswordCriteria(charType, charContent) {
 }
 
 
-
+// prompt user for a password length, perform data validation
+// if input is invalid, inform user why and reprompt for input
 function getPasswordLength() {
   const minLength = 8;
   const maxLength = 128
   var msgPrompt = "Welcome to the Password Generator\n\n";
   msgPrompt = `${msgPrompt}Please enter the desired password length,\n`;
-  msgPrompt = `${msgPrompt}from 8 to 128 characters for maximum security.`;
+  msgPrompt = `${msgPrompt}from ${minLength} to ${maxLength} characters for maximum security.`;
   var msgTooSmall = "Your entry is too small, please try again.";
   var msgTooLarge = "Your entry is too large, please try again.";
   var msgNaN = "Your entry is not a number, please try again.";
   var userInput;
 
+  // while-loop repeats until user enters an appropriate numeric value
   var entryIsValid = false;
   while (entryIsValid === false) {
     userInput = window.prompt(msgPrompt);
+    // selecting Cancel returns null which ultimately exits out of application
+    // check if input is not a number, too large, or too small
+    // inform user why input was invalid
     if (userInput === null) {
       return null;
     } else if (isNaN(userInput)) {
