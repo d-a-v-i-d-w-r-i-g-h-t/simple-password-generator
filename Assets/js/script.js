@@ -54,50 +54,85 @@ function generatePassword() {
   }
   
   // set boolean for each character type passed as argument in choosePasswordCriteria
-  o.lowercase.inUse = choosePasswordCriteria(o.lowercase.characterType, o.lowercase.content);
-  o.uppercase.inUse = choosePasswordCriteria(o.uppercase.characterType, o.uppercase.content);
-  o.numeric.inUse = choosePasswordCriteria(o.numeric.characterType, o.numeric.content);
-  o.special.inUse = choosePasswordCriteria(o.special.characterType, o.special.content);
+  var msg = "You must select at least one character type. Please try again.";
+  var selectAtLeastOne = false;
+  while (selectAtLeastOne === false) {
+    o.lowercase.inUse = choosePasswordCriteria(o.lowercase.characterType, o.lowercase.content);
+    o.uppercase.inUse = choosePasswordCriteria(o.uppercase.characterType, o.uppercase.content);
+    o.numeric.inUse = choosePasswordCriteria(o.numeric.characterType, o.numeric.content);
+    o.special.inUse = choosePasswordCriteria(o.special.characterType, o.special.content);
+    if (o.lowercase.inUse ||
+        o.uppercase.inUse ||
+        o.numeric.inUse ||
+        o.special.inUse === true) {
+      selectAtLeastOne = true;
+    } else {
+      window.alert(msg);
+    }
+  }
 
   // ensure every selected character type is used at least once
-  // add a random character for each in-use character type
-  // calculate number of character types being used to later determine how many more characters are necessary
-  var numCharTypes = 0;
-  var buildPassword = "";
+  // add a random character to initialCharacters for each in-use character type
+  // create a string with all in-use password characters for later use
+// calculate number of character types being used to later determine how many more characters are necessary
+  const emptyString = "";
+  var initialCharacters = emptyString
+  var allInUseCharacters = emptyString
   if (o.lowercase.inUse) {
-    numCharTypes++;
-    buildPassword = buildPassword + getRandomCharacter(o.lowercase.content);
+    initialCharacters = initialCharacters + getRandomCharacter(o.lowercase.content);
+    allInUseCharacters = allInUseCharacters + o.lowercase.content;
   }
   if (o.uppercase.inUse) {
-    numCharTypes++;
-    buildPassword = buildPassword + getRandomCharacter(o.uppercase.content);
+    initialCharacters = initialCharacters + getRandomCharacter(o.uppercase.content);
+    allInUseCharacters = allInUseCharacters + o.uppercase.content;
   }
   if (o.numeric.inUse) {
-    numCharTypes++;
-    buildPassword = buildPassword + getRandomCharacter(o.numeric.content);
+    initialCharacters = initialCharacters + getRandomCharacter(o.numeric.content);
+    allInUseCharacters = allInUseCharacters + o.numeric.content;
   }
   if (o.special.inUse) {
-    numCharTypes++;
-    buildPassword = buildPassword + getRandomCharacter(o.special.content);
+    initialCharacters = initialCharacters + getRandomCharacter(o.special.content);
+    allInUseCharacters = allInUseCharacters + o.special.content;
   }
+  console.log("initial characters: " + initialCharacters);
+  console.log("all in-use characters: " + allInUseCharacters);
 
-  // NEED TO PUT INITIAL FOUR CHARACTERS IN RANDOM ORDER
-  // NEED TO MAKE SURE USER SELECTS AT LEAST ONE OF THE CRITERIA
+  // var buildPassword = emptyString
+  // var numInitialCharacters = initialCharacters.length;
+  // var passwordChar;
+  // for (var i = 0; i < numInitialCharacters; i++) {
+  //   passwordChar = getRandomCharacter(initialCharacters);
+  //   buildPassword = buildPassword + passwordChar;
+  //   initialCharacters = initialCharacters.replace(passwordChar,emptyString);
+  // }
+
+
 
   // calculate how many more characters are needed
-  var numRemainingCharacters = o.passwordLength - numCharTypes;
-  // create a string with all characters
-  var allCharacters = o.lowercase.content +
-                      o.uppercase.content +
-                      o.numeric.content +
-                      o.special.content;
+  var numRemainingCharacters = o.passwordLength - initialCharacters.length;
+  
+  var buildPassword = initialCharacters;
   // add additional characters until we have enough
   for (var i = 0; i < numRemainingCharacters; i++) {
-    buildPassword = buildPassword + getRandomCharacter(allCharacters);
+    buildPassword = buildPassword + getRandomCharacter(allInUseCharacters);
   }
+  console.log(buildPassword);
+  buildPassword = randomizeString(buildPassword);
   console.log(buildPassword);
   return buildPassword;
 
+}
+
+function randomizeString(inputStr) {
+  var numChars = inputStr.length;
+  var randomChar;
+  var randomString = "";
+  for (var i = 0; i < numChars; i++) {
+    randomChar = getRandomCharacter(inputStr);
+    randomString = randomString + randomChar;
+    inputStr = inputStr.replace(randomChar,"");
+  }
+  return(randomString);
 }
 
 // generate a random index based on the string length
@@ -146,14 +181,3 @@ function getPasswordLength() {
   return userInput;
 }
 
-// 1. User clicks button, calls function writePassword()
-// 2. writePassword calls function generatePassword()
-// 3. generatePassword calls function getPasswordCriteria()
-// 4. prompt user for length
-// 5. prompt user for lowercase, uppercase, numeric, special
-// 6. call createPassword()
-// 7. add one random character from each type to password
-// 8. fill in remaining chars randomized from selected criteria
-// 9. return completed password
-// 10. write password to document using queryselector
-// 
