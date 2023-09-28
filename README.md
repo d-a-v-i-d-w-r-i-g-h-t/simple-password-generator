@@ -35,8 +35,7 @@ I learned about the viewport meta tag from [mdn web docs](https://developer.mozi
 
 I learned about the http-equiv meta tag from [GeeksforGeeks](https://www.cdn.geeksforgeeks.org/), [What does <meta http-equiv=”X-UA-Compatible” content=”IE=edge”> do ?](https://www.geeksforgeeks.org/what-does-meta-http-equivx-ua-compatible-contentieedge-do/#).
 
-
-
+I learned how to use the focus event to select all password text from [JavaScript in Plain English](https://javascript.plainenglish.io/), [How to Select All Contents of a Textbox When it Receives Focus?](https://javascript.plainenglish.io/how-to-select-all-contents-of-a-textbox-when-it-receives-focus-752c7469d94).
 
 The template for this README file was provided by [edX Boot Camps](https://www.edx.org/boot-camps).
 
