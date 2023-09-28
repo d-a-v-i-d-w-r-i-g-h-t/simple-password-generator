@@ -1,5 +1,19 @@
-// Assignment Code
+// Assignment Code (moving passwordText to global)
 var generateBtn = document.querySelector("#generate");
+var passwordText = document.querySelector("#password");
+
+// Add event listener to generate button
+// this click starts the application
+generateBtn.addEventListener("click", writePassword);
+
+
+// Add event listener for <textarea> focus
+// When <textarea> #password gets focus (after password creation), select all text
+// This allows user to more easily copy the generated password
+passwordText.addEventListener("focus", function() {
+  passwordText.select();
+});
+
 
 // Write password to the #password input
 function writePassword() {
@@ -7,19 +21,19 @@ function writePassword() {
   if (password === null) {
     return;
   }
-  var passwordText = document.querySelector("#password");
+ // var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
-
+// main function returns generated password
+// contains object variable with criteria and potential contents
+// directs request for user input for various criteria
 function generatePassword() {
   
   // object variable to contain user-selected password criteria, character contents, and character type
-  var passwordGen = {
+  var passwordCriteria = {
     lowercase: {
       inUse: false,
       content: "abcdefghijklmnopqrstuvwxyz",
@@ -43,8 +57,8 @@ function generatePassword() {
     passwordLength: 0
   }
   
-  // using const o for passwordGen to make this a bit more clear and readable
-  const o = passwordGen;
+  // using const o for passwordCriteria to make usage more clear and readable
+  const o = passwordCriteria;
 
 
   // if getPasswordLength returns a null, the application will be terminated using these null checks
@@ -93,8 +107,6 @@ function generatePassword() {
     initialCharacters = initialCharacters + getRandomCharacter(o.special.content);
     allInUseCharacters = allInUseCharacters + o.special.content;
   }
-  console.log("initial characters: " + initialCharacters);
-  console.log("all in-use characters: " + allInUseCharacters);
 
   // calculate how many more characters are needed to complete password
   var numRemainingCharacters = o.passwordLength - initialCharacters.length;
@@ -105,11 +117,9 @@ function generatePassword() {
   for (var i = 0; i < numRemainingCharacters; i++) {
     buildPassword = buildPassword + getRandomCharacter(allInUseCharacters);
   }
-  console.log(buildPassword);
   buildPassword = randomizeString(buildPassword);
-  console.log(buildPassword);
+  
   return buildPassword;
-
 }
 
 // takes an input string and builds a new randomized string
