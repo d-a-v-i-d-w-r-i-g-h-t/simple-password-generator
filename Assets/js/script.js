@@ -28,8 +28,9 @@ function generatePassword() {
 }
 
 function getPasswordLength() {
-  var msg = "Please enter password length\nMinimum 8 "
-  window.prompt()
+  var msg = "Please enter password length\nMinimum 8 characters, maximum 128 characters";
+  var response = window.prompt(msg);
+  
   
 }
 

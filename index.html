@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
+  <!-- head section defines character set (UTF-8) -->
+  <!-- sets viewport properties: -->
+  <!--   width=device-width sets page to 100% of device/screen width -->
+  <!--   initial-scale=1.0 sets default zoom level -->
+  <!--   X-UA-Compatible, ie=edge together force Internet Explorer to use the latest version of the rendering engine -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Password Generator</title>
-    <link rel="stylesheet" href="style.css" />
+    
+    <!-- title to be displayed in browser title bar -->
+    <title>Simple Password Generator</title>
+    
+    <!-- link to CSS source file -->
+    <link rel="stylesheet" href="../assets/css/style.css" />
   </head>
+  
+  <!-- body section of the page contains user-visible content -->
   <body>
+    
+    <!-- top-level div for password generator content box -->
+    <!-- nested divs provide space for title (h1), instructions (h2), output area, button -->
+    <!-- class names allow targeted formatting -->
     <div class="wrapper">
       <header>
         <h1>Password Generator</h1>
@@ -17,6 +33,8 @@
           <h2>Generate a Password</h2>
         </div>
         <div class="card-body">
+          <!-- text area it id="password" used to output the generated password using JavaScript -->
+          <!-- aria-label provides an accessible name for the generated password -->
           <textarea
             readonly
             id="password"
@@ -25,10 +43,14 @@
           ></textarea>
         </div>
         <div class="card-footer">
+          <!-- interactive button to start password generator application -->
           <button id="generate" class="btn">Generate Password</button>
         </div>
       </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- link to JavaScript source file -->
+    <!-- goes at the end so page is loaded before JavaScript does anything -->
+    <script src="../assets/js/script.js"></script>
   </body>
 </html>
