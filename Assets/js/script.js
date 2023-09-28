@@ -66,20 +66,23 @@ function generatePassword() {
   var buildPassword = "";
   if (o.lowercase.inUse) {
     numCharTypes++;
-    buildPassword = buildPassword + getRandomCharacter(lowercase.content);
+    buildPassword = buildPassword + getRandomCharacter(o.lowercase.content);
   }
   if (o.uppercase.inUse) {
     numCharTypes++;
-    buildPassword = buildPassword + getRandomCharacter(uppercase.content);
+    buildPassword = buildPassword + getRandomCharacter(o.uppercase.content);
   }
   if (o.numeric.inUse) {
     numCharTypes++;
-    buildPassword = buildPassword + getRandomCharacter(numeric.content);
+    buildPassword = buildPassword + getRandomCharacter(o.numeric.content);
   }
   if (o.special.inUse) {
     numCharTypes++;
-    buildPassword = buildPassword + getRandomCharacter(special.content);
+    buildPassword = buildPassword + getRandomCharacter(o.special.content);
   }
+
+  // NEED TO PUT INITIAL FOUR CHARACTERS IN RANDOM ORDER
+  // NEED TO MAKE SURE USER SELECTS AT LEAST ONE OF THE CRITERIA
 
   // calculate how many more characters are needed
   var numRemainingCharacters = o.passwordLength - numCharTypes;
@@ -92,9 +95,8 @@ function generatePassword() {
   for (var i = 0; i < numRemainingCharacters; i++) {
     buildPassword = buildPassword + getRandomCharacter(allCharacters);
   }
-  console.log(o.passwordLength);
-  console.log(buildpassword.length);
-  // return buildPassword;
+  console.log(buildPassword);
+  return buildPassword;
 
 }
 
@@ -124,23 +126,24 @@ function getPasswordLength() {
   var msgTooSmall = "Your entry is too small, please try again.";
   var msgTooLarge = "Your entry is too large, please try again.";
   var msgNaN = "Your entry is not a number, please try again.";
-  var response;
+  var userInput;
 
   var entryIsValid = false;
   while (entryIsValid === false) {
-    response = window.prompt(msgPrompt);
-    if (response === null) {
+    userInput = window.prompt(msgPrompt);
+    if (userInput === null) {
       return null;
-    } else if (isNaN(response)) {
+    } else if (isNaN(userInput)) {
       window.alert(msgNaN);
-    } else if (response > maxLength) {
+    } else if (userInput > maxLength) {
       window.alert(msgTooLarge);
-    } else if (response < minLength) {
+    } else if (userInput < minLength) {
       window.alert(msgTooSmall);
     } else {
       entryIsValid = true;
     }
   }
+  return userInput;
 }
 
 // 1. User clicks button, calls function writePassword()
