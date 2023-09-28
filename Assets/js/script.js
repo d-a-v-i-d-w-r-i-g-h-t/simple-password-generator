@@ -43,22 +43,67 @@ function generatePassword() {
     passwordLength: 0
   }
   
+  // using const o for passwordGen to make this a bit more clear and readable
+  const o = passwordGen;
+
 
   // if getPasswordLength returns a null, the application will be terminated using these null checks
-  passwordGen.passwordLength = getPasswordLength();
-  if (passwordGen.passwordLength === null) {
+  o.passwordLength = getPasswordLength();
+  if (o.passwordLength === null) {
     return null;
   }
   
   // set boolean for each character type passed as argument in choosePasswordCriteria
-  // using const o to make this a bit more clear and readable
-  const o = passwordGen;
   o.lowercase.inUse = choosePasswordCriteria(o.lowercase.characterType, o.lowercase.content);
   o.uppercase.inUse = choosePasswordCriteria(o.uppercase.characterType, o.uppercase.content);
   o.numeric.inUse = choosePasswordCriteria(o.numeric.characterType, o.numeric.content);
   o.special.inUse = choosePasswordCriteria(o.special.characterType, o.special.content);
 
+  // ensure every selected character type is used at least once
+  // add a random character for each in-use character type
+  // calculate number of character types being used to later determine how many more characters are necessary
   var numCharTypes = 0;
+  var buildPassword = "";
+  if (o.lowercase.inUse) {
+    numCharTypes++;
+    buildPassword = buildPassword + getRandomCharacter(lowercase.content);
+  }
+  if (o.uppercase.inUse) {
+    numCharTypes++;
+    buildPassword = buildPassword + getRandomCharacter(uppercase.content);
+  }
+  if (o.numeric.inUse) {
+    numCharTypes++;
+    buildPassword = buildPassword + getRandomCharacter(numeric.content);
+  }
+  if (o.special.inUse) {
+    numCharTypes++;
+    buildPassword = buildPassword + getRandomCharacter(special.content);
+  }
+
+  // calculate how many more characters are needed
+  var numRemainingCharacters = o.passwordLength - numCharTypes;
+  // create a string with all characters
+  var allCharacters = o.lowercase.content +
+                      o.uppercase.content +
+                      o.numeric.content +
+                      o.special.content;
+  // add additional characters until we have enough
+  for (var i = 0; i < numRemainingCharacters; i++) {
+    buildPassword = buildPassword + getRandomCharacter(allCharacters);
+  }
+  console.log(o.passwordLength);
+  console.log(buildpassword.length);
+  // return buildPassword;
+
+}
+
+// generate a random index based on the string length
+// get a single character from the input string
+function getRandomCharacter(inputString) {
+  var randomIndex = Math.floor(Math.random() * inputString.length);
+  var randomCharacter = inputString[randomIndex];
+  return randomCharacter;
 }
 
 // generic function to confirm a character type and return a boolean
@@ -75,7 +120,7 @@ function getPasswordLength() {
   const maxLength = 128
   var msgPrompt = "Welcome to the Password Generator\n\n";
   msgPrompt = `${msgPrompt}Please enter the desired password length,\n`;
-  msgPrompt = `${msgPrompt}"from 8 to 128 characters for maximum security.`;
+  msgPrompt = `${msgPrompt}from 8 to 128 characters for maximum security.`;
   var msgTooSmall = "Your entry is too small, please try again.";
   var msgTooLarge = "Your entry is too large, please try again.";
   var msgNaN = "Your entry is not a number, please try again.";
@@ -88,9 +133,9 @@ function getPasswordLength() {
       return null;
     } else if (isNaN(response)) {
       window.alert(msgNaN);
-    } else if (response >= maxLength) {
+    } else if (response > maxLength) {
       window.alert(msgTooLarge);
-    } else if (response <= minLength) {
+    } else if (response < minLength) {
       window.alert(msgTooSmall);
     } else {
       entryIsValid = true;
