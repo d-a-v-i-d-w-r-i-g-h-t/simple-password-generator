@@ -16,6 +16,7 @@ passwordText.addEventListener("focus", function() {
 });
 
 
+// ** FUNCTION writePassword **
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
@@ -29,6 +30,7 @@ function writePassword() {
 }
 
 
+// ** FUNCTION generatePassword **
 // generatePassword function returns generated password
 function generatePassword() {
   
@@ -131,6 +133,7 @@ function generatePassword() {
 }
 
 
+// ** FUNCTION randomizeString **
 // Shuffle an input string and create a new randomized string with the result,
 // by randomly taking one character at a time from input string
 function randomizeString(inputStr) {
@@ -150,6 +153,7 @@ function randomizeString(inputStr) {
 }
 
 
+// ** FUNCTION getRandomCharacter **
 // Generate a random index based on the string length
 // Return a single random character from the input string
 function getRandomCharacter(inputString) {
@@ -159,6 +163,7 @@ function getRandomCharacter(inputString) {
 }
 
 
+// ** FUNCTION choosePasswordCriteria **
 // Prompt user to confirm usage of a given character type and return a boolean
 // The desired character type is passed as an argument, along with the set of characters for user reference
 function choosePasswordCriteria(charType, charContent) {
@@ -168,6 +173,7 @@ function choosePasswordCriteria(charType, charContent) {
 }
 
 
+// ** FUNCTION getPasswordLength **
 // Prompt user for a password length, perform data validation
 // Use a while-loop to repeat request until valid input has been entered
 // If input is invalid, inform user why and reprompt for input
