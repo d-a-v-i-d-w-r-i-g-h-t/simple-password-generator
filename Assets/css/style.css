@@ -1,9 +1,12 @@
+/* universal selector, plus universal selector with ::before and ::after pseudo-elements,
+necessary because box-sizing is not inherited */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* element (html, body) and class (.wrapper) selectors assigned the same properties */
 html,
 body,
 .wrapper {
@@ -12,6 +15,7 @@ body,
   padding: 0;
 }
 
+/* element selector  */
 body {
   font-family: sans-serif;
   background-color: #f9fbfd;
