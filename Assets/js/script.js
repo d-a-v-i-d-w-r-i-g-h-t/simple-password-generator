@@ -17,31 +17,69 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
-  var passwordCriteria = {
-    length: 0,
-    lowercase: false,
-    uppercase: false,
-    numeric: false,
-    special: false
+  
+  // object variable to contain user-selected password criteria, character contents, and character type
+  var passwordGen = {
+    lowercase: {
+      inUse: false,
+      content: "abcdefghijklmnopqrstuvwxyz",
+      characterType: "lowercase"
+    },
+    uppercase: {
+      inUse: false,
+      content: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      characterType: "uppercase"
+    },
+    numeric: {
+      inUse: false,
+      content: "0123456789",
+      characterType: "numeric"
+    },
+    special: {
+      inUse: false,
+      content: "!@#$%^&*()_+-=[]{}|;:,.<>?/~",
+      characterType: "special"
+    },
+    passwordLength: 0
   }
   
-  passwordCriteria.length = getPasswordLength();
-  if (passwordCriteria.length === null) {
+
+  // if getPasswordLength returns a null, the application will be terminated using these null checks
+  passwordGen.passwordLength = getPasswordLength();
+  if (passwordGen.passwordLength === null) {
     return null;
   }
+  
+  // set boolean for each character type passed as argument in choosePasswordCriteria
+  // using const o to make this a bit more clear and readable
+  const o = passwordGen;
+  o.lowercase.inUse = choosePasswordCriteria(o.lowercase.characterType, o.lowercase.content);
+  o.uppercase.inUse = choosePasswordCriteria(o.uppercase.characterType, o.uppercase.content);
+  o.numeric.inUse = choosePasswordCriteria(o.numeric.characterType, o.numeric.content);
+  o.special.inUse = choosePasswordCriteria(o.special.characterType, o.special.content);
 
+  var numCharTypes = 0;
 }
+
+// generic function to confirm a character type and return a boolean
+function choosePasswordCriteria(charType, charContent) {
+  var msg = `Would you like your password to contain ${charType} characters?\n\n`;
+  msg = msg + charContent;
+  return window.confirm(msg);
+}
+
+
 
 function getPasswordLength() {
   const minLength = 8;
   const maxLength = 128
   var msgPrompt = "Welcome to the Password Generator\n\n";
-  msgPrompt = msgPrompt + "Please enter the desired password length,\n";
-  msgPrompt = msgPrompt + "from 8 to 128 characters for maximum security.";
+  msgPrompt = `${msgPrompt}Please enter the desired password length,\n`;
+  msgPrompt = `${msgPrompt}"from 8 to 128 characters for maximum security.`;
   var msgTooSmall = "Your entry is too small, please try again.";
   var msgTooLarge = "Your entry is too large, please try again.";
   var msgNaN = "Your entry is not a number, please try again.";
-  var response = "";
+  var response;
 
   var entryIsValid = false;
   while (entryIsValid === false) {
@@ -58,9 +96,6 @@ function getPasswordLength() {
       entryIsValid = true;
     }
   }
-  console.log(response);
-
-  
 }
 
 // 1. User clicks button, calls function writePassword()
