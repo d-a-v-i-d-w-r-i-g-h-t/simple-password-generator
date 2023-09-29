@@ -154,7 +154,7 @@ function randomizeString(inputStr) {
 
 
 // ** FUNCTION getRandomCharacter **
-// Generate a random index based on the string length
+// Generate a random index based on the input string length
 // Return a single random character from the input string
 function getRandomCharacter(inputString) {
   var randomIndex = Math.floor(Math.random() * inputString.length);
