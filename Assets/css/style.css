@@ -6,7 +6,7 @@ necessary because box-sizing is not inherited */
   box-sizing: border-box;
 }
 
-/* element (html, body) and class (.wrapper) selectors assigned the same properties */
+/* element (html, body) and class (.wrapper) selectors are assigned the same properties */
 html,
 body,
 .wrapper {
@@ -15,18 +15,20 @@ body,
   padding: 0;
 }
 
-/* element selector  */
+/* element selector to format element body */
 body {
   font-family: sans-serif;
   background-color: #f9fbfd;
 }
 
+/* class selector to format class .wrapper */
 .wrapper {
   padding-top: 30px;
   padding-left: 20px;
   padding-right: 20px;
 }
 
+/* element selector to format element header */
 header {
   text-align: center;
   padding: 20px;
@@ -34,11 +36,12 @@ header {
   color: hsl(206, 17%, 28%);
 }
 
+/* class selector to format class .card */
 .card {
   background-color: hsl(0, 0%, 100%);
   border-radius: 5px;
   border-width: 1px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px 0px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 10px 0px;
   color: hsl(206, 17%, 28%);
   font-size: 18px;
   margin: 0 auto;
@@ -46,6 +49,8 @@ header {
   padding: 30px 40px;
 }
 
+/* class selector with pseudo-element ::after selector
+to add formatted content after class .card-header */
 .card-header::after {
   content: " ";
   display: block;
@@ -54,14 +59,39 @@ header {
   height: 2px;
 }
 
+/* class selector to format class .card-body */
 .card-body {
   min-height: 100px;
 }
 
+/* id selector to format id password */
+#password {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 85px;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px dashed #c0c7cf;
+  border-radius: 6px;
+  resize: none;
+  overflow: hidden;
+}
+
+/* class selector to format class .card-footer */
 .card-footer {
   text-align: center;
 }
 
+/* class selector with pseudo-element ::before selector
+to add formatted content before class .card-footer */
 .card-footer::before {
   content: " ";
   display: block;
@@ -70,12 +100,15 @@ header {
   height: 2px;
 }
 
+/* class selector with pseudo-element ::after selector
+to add formatted content after class .card-footer */
 .card-footer::after {
   content: " ";
   display: block;
   clear: both;
 }
 
+/* class selector to format class .btn */
 .btn {
   border: none;
   background-color: hsl(360, 91%, 36%);
@@ -92,53 +125,33 @@ header {
   cursor: pointer;
 }
 
+/* element selector to format element button when disabled attribute is true  */
 button[disabled] {
   cursor: default;
   background: #c0c7cf;
 }
 
-.float-right {
-  float: right;
-}
-
-#password {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  display: block;
-  width: 100%;
-  padding-top: 15px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 85px;
-  font-size: 1.2rem;
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border: 2px dashed #c0c7cf;
-  border-radius: 6px;
-  resize: none;
-  overflow: hidden;
-  -webkit-user-select: all;
-  -moz-user-select: all;  
-  user-select: all;            
-
-}
-
+/* media query applies formatting when window width is <= 690px */
 @media (max-width: 690px) {
+  /* class selector to format class .btn
+     decreases button size and font size */
   .btn {
     font-size: 1rem;
     margin: 16px 0px 0px 0px;
     padding: 10px 15px;
   }
 
+  /* id selector to format id password
+    decreases font size */
   #password {
     font-size: 1rem;
   }
 }
 
+/* media query applies formatting when window width is <= 500px */
 @media (max-width: 500px) {
+  /* class selector to format class .btn
+     decreases font size */
   .btn {
     font-size: 0.8rem;
   }
