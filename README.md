@@ -20,12 +20,18 @@ N/A
 
 ## Usage 
 
-Provide instructions and examples for use. Include screenshots as needed. 
+The Simple Password Generator  
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
 
 
 ![Simple Password Generator screenshot](assets/images/screenshot.png)
+![Password length prompt popup Box](assets/images/password-length.png)
+![Lowercase characters confirm popup box](assets/images/lowercase-characters.png)
+![Uppercase characters confirm popup box](assets/images/uppercase-characters.png)
+![Lowercase characters confirm popup box](assets/images/numeric-characters.png)
+![Special characters confirm popup box](assets/images/special-characters.png)
+![Generated password is displayed ](assets/images/generated-password.png)
+![Password text is selected when textbox has focus](assets/images/password-selected-on-focus.png)
 
 
 
