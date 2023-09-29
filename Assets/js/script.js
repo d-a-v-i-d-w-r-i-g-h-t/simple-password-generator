@@ -1,6 +1,7 @@
-// Assignment Code (moving passwordText to global)
+// Assignment Code (moved passwordText to global)
 var generateBtn = document.querySelector("#generate");
 var passwordText = document.querySelector("#password");
+const emptyString = "";
 
 
 // Add event listener to generate button
@@ -95,7 +96,6 @@ function generatePassword() {
   // Ensure every selected character type is used at least once:
   // Add a random character to initialCharacters for each in-use character type
   // At the same time, create a string with all in-use password characters for later use
-  const emptyString = "";
   var initialCharacters = emptyString
   var allInUseCharacters = emptyString
   if (o.lowercase.inUse) {
@@ -181,12 +181,14 @@ function getPasswordLength() {
   // Length criteria are stored as constant values
   const minLength = 8;
   const maxLength = 128
-  var msgPrompt = "Welcome to the Password Generator\n\n";
-  msgPrompt = `${msgPrompt}Please enter the desired password length,\n`;
-  msgPrompt = `${msgPrompt}from ${minLength} to ${maxLength} characters for maximum security.`;
-  var msgTooSmall = "Your entry is too small, please try again.";
-  var msgTooLarge = "Your entry is too large, please try again.";
+  var msgPrompt = "Welcome to the Simple Password Generator!\n\n";
+  msgPrompt = `${msgPrompt}Password Length\n\n`;
+  msgPrompt = `${msgPrompt}Please enter a number from ${minLength} to ${maxLength}.\n`;
+  msgPrompt = `${msgPrompt}Longer passwords provide greater security.`;
   var msgNaN = "Your entry is not a number, please try again.";
+  var msgEmpty = "You forgot to enter a value! Please try again.";
+  var msgTooLarge = "Your entry is too large, please try again.";
+  var msgTooSmall = "Your entry is too small, please try again.";
   var userInput;
 
   // The while-loop repeats until user enters an appropriate numeric value
@@ -201,6 +203,8 @@ function getPasswordLength() {
       return null;
     } else if (isNaN(userInput)) {
       window.alert(msgNaN);
+    } else if (userInput === emptyString) {
+      window.alert(msgEmpty);
     } else if (userInput > maxLength) {
       window.alert(msgTooLarge);
     } else if (userInput < minLength) {
